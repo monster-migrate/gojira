@@ -16,8 +16,12 @@ export const authOptions: NextAuthOptions = {
     adapter: MongoDBAdapter(clientPromise, { databaseName: "gojira" }),
     providers: [
         GithubProvider({
-            clientId: process.env.GITHUB_ID || "",
-            clientSecret: process.env.GITHUB_SECRET || "",
+            clientId: process.env.GITHUB_ID,
+            clientSecret: process.env.GITHUB_SECRET,
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || "",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
         }),
     ],
     session: {
@@ -43,8 +47,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         adapter: MongoDBAdapter(clientPromise, { databaseName: "gojira" }),
         providers: [
             GithubProvider({
-                clientId: process.env.GITHUB_ID || "",
-                clientSecret: process.env.GITHUB_SECRET || "",
+                clientId: process.env.GITHUB_ID,
+                clientSecret: process.env.GITHUB_SECRET,
             }),
             GoogleProvider({
                 clientId: process.env.GOOGLE_CLIENT_ID || "",
