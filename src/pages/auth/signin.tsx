@@ -9,13 +9,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { robotoCondensed } from "@/lib/fonts/robotoCondensed"
 import { cn } from "@/lib/utils"
-import { FcGoogle, FcPhoneAndroid } from "react-icons/fc"
+import { FcGoogle } from "react-icons/fc"
 import { FaGithub } from "react-icons/fa"
 import { JSX } from "react"
 import Image from "next/image"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
-import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { Separator } from "@/components/ui/separator"
 
 const providerIcons: { [key: string]: JSX.Element } = {
@@ -31,7 +30,7 @@ export default function SignIn({
       <Card className="w-[350px]">
         <CardHeader className="flex flex-col justify-center items-center text-center">
           <Image src="/assets/logo.svg" width={72} height={72} alt="logo" className="text-center" />
-          <CardTitle className="text-gray-500">Let's get you in.</CardTitle>
+          <CardTitle className="text-gray-500">Let&apos;s get you in.</CardTitle>
           <CardDescription className="text-xs">Sign in using your preferred account provider for added security.</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col justify-center items-center w-full gap-4">
@@ -57,7 +56,7 @@ export default function SignIn({
           </div>
           <Separator />
           <div className="flex justify-center w-full items-center gap-4 text-xs">
-            <Link href="/forgotpassword" className="text-blue-500">Can't log in?</Link>
+            <Link href="/forgotpassword" className="text-blue-500">Can&apos;t log in?</Link>
             <p className="text-3xl">·</p>
             <Link href="/signup" className="text-blue-500">Create an account</Link>
           </div>

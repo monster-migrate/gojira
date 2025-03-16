@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
@@ -39,7 +39,7 @@ const formSchema = z.object({
 export default function NewUserPage() {
     const { data: session } = useSession();
     const router = useRouter();
-    const [role, setRole] = useState("");
+    // const [role, setRole] = useState("");
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -51,7 +51,7 @@ export default function NewUserPage() {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         const role = values.role;
-        setRole(role);
+        // setRole(role);
         const res = await fetch("/api/set-role", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -62,18 +62,18 @@ export default function NewUserPage() {
         console.log(values)
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!role) return alert("Please select a role.");
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     if (!role) return alert("Please select a role.");
 
-        const res = await fetch("/api/set-role", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ role, email: session?.user?.email }),
-        });
+    //     const res = await fetch("/api/set-role", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ role, email: session?.user?.email }),
+    //     });
 
-        if (res.ok) router.push(`/dashboard/${session?.user?.fdlst_private_userId}`);
-    };
+    //     if (res.ok) router.push(`/dashboard/${session?.user?.fdlst_private_userId}`);
+    // };
 
     return (
         <div className={cn(`flex flex-col items-center justify-center h-screen`,

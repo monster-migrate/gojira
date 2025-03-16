@@ -1,29 +1,25 @@
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSubItem, useSidebar } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
-import { MdDashboard, MdFeedback, MdShelves, MdWorkspaces } from "react-icons/md";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { ChevronDown, PlusCircle } from "lucide-react";
+import { Sidebar, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { MdFeedback, MdShelves, MdWorkspaces } from "react-icons/md";
+import { PlusCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { role } from "../account-menu";
 import { cn } from "@/lib/utils";
 import { robotoCondensed } from "@/lib/fonts/robotoCondensed";
 import { Separator } from "../ui/separator";
-import { FcFeedback } from "react-icons/fc";
-import { FaChevronCircleDown, FaPlus } from "react-icons/fa";
 import { Tooltip, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { TooltipContent } from "@radix-ui/react-tooltip";
 import { BsApp, BsArrowRight, BsClockFill, BsPlusCircle, BsRocket, BsStack, BsStarFill } from "react-icons/bs";
 export function AppSidebar() {
     const {
-        state,
+        // state,
         open,
-        setOpen,
-        openMobile,
-        setOpenMobile,
-        isMobile,
-        toggleSidebar,
+        // setOpen,
+        // openMobile,
+        // setOpenMobile,
+        // isMobile,
+        // toggleSidebar,
     } = useSidebar()
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     return (
         <Sidebar collapsible="icon" className={robotoCondensed.className}>
             <SidebarHeader>
@@ -61,7 +57,7 @@ export function AppSidebar() {
                                         </Tooltip>
                                     </SidebarMenuAction>
                                 </TooltipProvider>
-                            </SidebarMenuButton> : <MdShelves className="w-full" />}
+                            </SidebarMenuButton> : <MdShelves className="w-full mt-4" />}
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             {open ? <SidebarMenuButton>
@@ -81,7 +77,7 @@ export function AppSidebar() {
                                         </Tooltip>
                                     </SidebarMenuAction>
                                 </TooltipProvider>
-                            </SidebarMenuButton> : <MdShelves className="w-full" />}
+                            </SidebarMenuButton> : <BsClockFill className="w-full mt-4" />}
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             {open ? <SidebarMenuButton>
@@ -101,7 +97,7 @@ export function AppSidebar() {
                                         </Tooltip>
                                     </SidebarMenuAction>
                                 </TooltipProvider>
-                            </SidebarMenuButton> : <MdShelves className="w-full" />}
+                            </SidebarMenuButton> : <BsStarFill className="w-full mt-4" />}
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             {open ? <SidebarMenuButton>
@@ -121,7 +117,7 @@ export function AppSidebar() {
                                         </Tooltip>
                                     </SidebarMenuAction>
                                 </TooltipProvider>
-                            </SidebarMenuButton> : <MdShelves className="w-full" />}
+                            </SidebarMenuButton> : <BsApp className="w-full mt-4" />}
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             {open ? <SidebarMenuButton>
@@ -141,7 +137,7 @@ export function AppSidebar() {
                                         </Tooltip>
                                     </SidebarMenuAction>
                                 </TooltipProvider>
-                            </SidebarMenuButton> : <MdShelves className="w-full" />}
+                            </SidebarMenuButton> : <BsStack className="w-full mt-4" />}
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             {open ? <SidebarMenuButton>
@@ -161,7 +157,7 @@ export function AppSidebar() {
                                         </Tooltip>
                                     </SidebarMenuAction>
                                 </TooltipProvider>
-                            </SidebarMenuButton> : <MdShelves className="w-full" />}
+                            </SidebarMenuButton> : <BsRocket className="w-full mt-4" />}
                         </SidebarMenuItem>
                     </SidebarMenu>
 

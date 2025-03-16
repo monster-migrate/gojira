@@ -21,7 +21,7 @@ export const role = (role_code: string): string => {
     return roles[role_code] || "Unknown Role";
 }
 const AccountMenu = (): JSX.Element => {
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     
     return (
         <div>

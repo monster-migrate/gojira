@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { MdNotifications, MdSettings } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosApps, IoIosDesktop } from "react-icons/io";

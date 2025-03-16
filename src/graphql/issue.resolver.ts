@@ -13,10 +13,9 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { getUserByEmail } from "../../mongoose/User/user.services";
 import { getProjectByKey } from "../../mongoose/Project/project.service";
-import { UserInterface } from "../../mongoose/User/user.interface";
 export const issueResolver = {
   Query: {
-    getIssue: async (_: any, { issue_id }: { issue_id: string }) => {
+    getIssue: async (_parent: unknown, { issue_id }: { issue_id: string }) => {
       const issue = await getIssueById(issue_id);
       if (!issue) throw new Error("Issue not found");
       return issue;
@@ -25,7 +24,7 @@ export const issueResolver = {
   },
   Mutation: {
     createIssue: async (
-      _: any,
+      _parent: unknown,
       {
         title,
         description,
@@ -82,7 +81,7 @@ export const issueResolver = {
       return document;
     },
     updateIssue: async (
-      _: any,
+      _parent: unknown,
       {
         issueId,
         title,
@@ -120,7 +119,7 @@ export const issueResolver = {
       }
       return updatedIssue;
     },
-    deleteIssue: async (_: any, { issueId }: { issueId: string }) => {
+    deleteIssue: async (_parent: unknown, { issueId }: { issueId: string }) => {
       const issue = await getIssueById(issueId);
       if (!issue) {
         throw new Error("Issue not found");

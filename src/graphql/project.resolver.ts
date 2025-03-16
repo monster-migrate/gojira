@@ -5,7 +5,7 @@ import {
   updateProject,
   deleteProject,
 } from "../../mongoose/Project/project.service";
-import { getUserByEmail, createUser } from "../../mongoose/User/user.services";
+import { getUserByEmail } from "../../mongoose/User/user.services";
 import { ProjectStatus } from "../../mongoose/Project/project.interface";
 import { v4 as uuidv4 } from "uuid";
 import { IssueInterface } from "../../mongoose/Issue/issue.interface";
@@ -17,7 +17,7 @@ function createUniqueId() {
 }
 export const projectResolver = {
   Query: {
-    getProject: async (_: any, { key }: { key: string }) => {
+    getProject: async (_parent: unknown, { key }: { key: string }) => {
       const project = await getProjectByKey(key);
       if (!project) throw new Error("Project Not Found!");
       return project;
@@ -28,7 +28,7 @@ export const projectResolver = {
   },
   Mutation: {
     createProject: async (
-      _: any,
+      _parent: unknown,
       {
         name,
         description,
@@ -47,7 +47,7 @@ export const projectResolver = {
       }
     ) => {
       try {
-        let user = await getUserByEmail(owner.email);
+        const user = await getUserByEmail(owner.email);
         if (!user) {
           throw new Error("User not found");
         }
@@ -72,7 +72,7 @@ export const projectResolver = {
       }
     },
     updateProject: async (
-      _: any,
+      _parent: unknown,
       {
         key,
         name,
@@ -121,7 +121,7 @@ export const projectResolver = {
         console.error(err);
       }
     },
-    deleteProject: async (_: any, { key }: { key: string }) => {
+    deleteProject: async (_parent: unknown, { key }: { key: string }) => {
       const project = await getProjectByKey(key);
       if (!project) {
         throw new Error("Project not found");

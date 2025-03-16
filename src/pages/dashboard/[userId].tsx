@@ -8,7 +8,7 @@ const Dashboard: NextPage = (
 ) => {
     const userId: string | undefined = props.data?.userId;
     const { data: session } = useSession();
-    let isCurrentUsers =
+    const isCurrentUsers =
         userId && session?.user.fdlst_private_userId === userId;
     return (
         <div>
@@ -21,10 +21,10 @@ const Dashboard: NextPage = (
 export const getServerSideProps: GetServerSideProps = async (
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-    let { userId } = context.query;
+    const { userId } = context.query;
     try {
         await dbConnect();
-    } catch (err: any) { console.log(err) }
+    } catch (err: unknown) { console.log(err) }
     return {
         props: {
             data: { userId: userId }

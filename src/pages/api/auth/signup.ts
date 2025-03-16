@@ -46,7 +46,10 @@ export default async function handler(
       message: "User registered successfully!",
       user: result.data.createUser,
     });
-  } catch (error) {
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    }
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }

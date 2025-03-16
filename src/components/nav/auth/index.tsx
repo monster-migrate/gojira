@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Button } from "@/components/ui/button";
 import { WiMoonAltFirstQuarter } from "react-icons/wi";
-import { AiOutlineLogout, AiOutlineUserSwitch } from "react-icons/ai";
+import { AiOutlineUserSwitch } from "react-icons/ai";
 import styles from "./index.module.css";
 import { JSX } from "react";
 import AuthBtn from "@/components/auth-btn";
 import Image from "next/image";
-import { CiCircleChevDown, CiCloudMoon, CiSettings } from "react-icons/ci";
+import { CiCircleChevDown, CiSettings } from "react-icons/ci";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MdDashboard } from "react-icons/md";
 const AuthElement = (): JSX.Element => {

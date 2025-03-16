@@ -5,7 +5,7 @@ interface PropsInterface {
     disabled?: boolean;
     children?: React.ReactNode;
     variant?: "default" | "outline";
-    clickHandler?: () => any;
+    clickHandler?: () => void;
 }
 const AuthBtn = (props: PropsInterface): JSX.Element => {
     const { children, variant, disabled, clickHandler } = props;

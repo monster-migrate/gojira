@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -67,7 +67,7 @@ const SignUpPage: React.FC = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const router = useRouter();
   const submitFormData = async (data: z.infer<typeof FormSchema>) => {
     try {

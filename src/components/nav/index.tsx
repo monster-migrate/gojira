@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { JSX } from "react";
-import { Button } from "../ui/button";
 import { CiMenuFries } from "react-icons/ci";
 import {
     DropdownMenu,
@@ -13,13 +12,11 @@ import {
     DropdownMenuLabel,
     DropdownMenuPortal,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
     DropdownMenuSub,
     DropdownMenuSubContent,
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import AuthBtn from "../auth-btn";
 import AuthElement from "./auth";
 const Navigation = (): JSX.Element => {
     return (

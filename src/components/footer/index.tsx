@@ -2,11 +2,9 @@ import { JSX } from "react";
 import { robotoCondensed } from "@/lib/fonts/robotoCondensed";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { Command, CommandInput, CommandList } from "../ui/command";
 import { Input } from "../ui/input";
 import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 const Footer = (): JSX.Element => {
     return (
         <div className={cn(`w-screen`,

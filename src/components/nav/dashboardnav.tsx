@@ -16,18 +16,18 @@ import SettingsMenu from "../settings-menu";
 import NotificationsMenu from "../notifications-menu";
 import HomeIcon from "../home-icon";
 import AppsMenu from "../apps-menu";
-import { SidebarTrigger, useSidebar } from "../ui/sidebar";
+import { useSidebar } from "../ui/sidebar";
 import SidebarTriggerContainer from "../app-sidebar/sidebar-trigger";
 
 const DashboardNavigation = (): JSX.Element => {
     const {
-        state,
+        // state,
         open,
-        setOpen,
-        openMobile,
-        setOpenMobile,
-        isMobile,
-        toggleSidebar,
+        // setOpen,
+        // openMobile,
+        // setOpenMobile,
+        // isMobile,
+        // toggleSidebar,
     } = useSidebar()
     return (
         <div className={cn(`flex justify-between items-center gap-2 ${open ? "w-screen-minus-sidebar" : "w-screen-minus-sidebar-icons "}`,

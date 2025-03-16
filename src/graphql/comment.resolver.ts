@@ -1,18 +1,15 @@
-import { CommentInterface } from "../../mongoose/Comment/comment.interface";
 import {
   createComment,
   getCommentById,
   updateComment,
   deleteComment,
 } from "../../mongoose/Comment/comment.service";
-import { IssueInterface } from "../../mongoose/Issue/issue.interface";
 import { v4 as uuidv4 } from "uuid";
-import { UserInterface, UserRole } from "../../mongoose/User/user.interface";
-import { getUserByEmail, updateUser } from "../../mongoose/User/user.services";
+import { getUserByEmail } from "../../mongoose/User/user.services";
 
 export const commentResolver = {
   Query: {
-    getComment: async (_: any, { commentId }: { commentId: string }) => {
+    getComment: async (_parent: unknown, { commentId }: { commentId: string }) => {
       const comment = await getCommentById(commentId);
       if (!comment) throw new Error("Comment not found");
       return comment;
@@ -20,7 +17,7 @@ export const commentResolver = {
   },
   Mutation: {
     createComment: async (
-      _: any,
+      _parent: unknown,
       {
         content,
         author_email,
@@ -33,7 +30,7 @@ export const commentResolver = {
       }
     ) => {
       try {
-        let user = await getUserByEmail(author_email);
+        const user = await getUserByEmail(author_email);
         if (!user) {
           throw new Error("User not found");
         }
@@ -55,7 +52,7 @@ export const commentResolver = {
       }
     },
     updateComment: async (
-      _: any,
+      _parent: unknown,
       {
         commentId,
         content,
@@ -69,7 +66,7 @@ export const commentResolver = {
       try {
         const existingComment = await getCommentById(commentId);
         if (!existingComment) throw new Error("Comment not found");
-        const updateData: any = {
+        const updateData: Partial<{ content: string; tags: string[]; updatedAt: Date }> = {
           ...(content && { content }),
           ...(tags && { tags }),
           updatedAt: new Date(),
@@ -81,7 +78,7 @@ export const commentResolver = {
         throw new Error(`Error updating comment:${error}`);
       }
     },
-    deleteComment: async (_: any, { commentId }: { commentId: string }) => {
+    deleteComment: async (_parent: unknown, { commentId }: { commentId: string }) => {
       const comment = await getCommentById(commentId);
       if (!comment) throw new Error("Comment not found");
       const success = await deleteComment(commentId);

@@ -9,7 +9,7 @@ import { UserRole } from "../../mongoose/User/user.interface";
 
 export const userResolver = {
   Query: {
-    getUser: async (_: any, { email }: { email: string }) => {
+    getUser: async (_parent: unknown, { email }: { email: string }) => {
       const user = await getUserByEmail(email);
       if (!user) throw new Error("User not found");
       return user;
@@ -18,7 +18,7 @@ export const userResolver = {
   },
   Mutation: {
     createUser: async (
-      _: any,
+      _parent: unknown,
       {
         name,
         email,
@@ -42,7 +42,7 @@ export const userResolver = {
       return document;
     },
     updateUser: async (
-      _: any,
+      _parent: unknown,
       {
         name,
         email,
@@ -64,7 +64,7 @@ export const userResolver = {
 
       return updatedUser;
     },
-    deleteUser: async (_: any, { email }: { email: string }) => {
+    deleteUser: async (_parent: unknown, { email }: { email: string }) => {
       const user = await getUserByEmail(email);
       if (!user) {
         throw new Error("User not found");

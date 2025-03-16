@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const session = await getServerSession(req, res, authOptions);
     if (!session) return res.status(401).json({ error: "Not authenticated" });
-    const userId = session.user.fdlst_private_userId;
+    // const userId = session.user.fdlst_private_userId;
     const { role, email }: { role?: string; email?: string } = req.body;
     if (!role || !email) return res.status(400).json({ error: "Missing data" });
 
