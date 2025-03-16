@@ -12,6 +12,9 @@ const options = {
         strict: true,
         deprecationErrors: true,
     },
+    serverSelectionTimeoutMS: 50000, // 50 seconds (default is 30s)
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 };
 
 // let client: MongoClient;
