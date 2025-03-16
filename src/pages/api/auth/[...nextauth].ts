@@ -6,8 +6,7 @@ import NextAuth from "next-auth/next";
 import { createHash } from "crypto";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
-import { JWT } from "next-auth/jwt";
-import { NextAuthOptions, Session } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 
 const createUserId = (base: string): string => {
     return createHash("sha256").update(base).digest("hex");
@@ -25,22 +24,27 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     session: {
-        strategy: "database",
+        strategy: "database"
     },
     callbacks: {
-        async jwt({ token }: { token: JWT }) {
+        async jwt({ token }) {
             if (token?.email && !token.fdlst_private_userId) {
-                token.fdlst_private_userId = createUserId(token.email);
+                token.fdlst_private_userId = createUserId(token.email)
             }
             return token;
         },
-        async session({ session }: { session: Session }) {
+        async session({ session, user }) {
             if (session?.user?.email && !session.user.fdlst_private_userId) {
-                session.user.fdlst_private_userId = createUserId(session.user.email);
+                session.user.fdlst_private_userId = createUserId(session.user.email)
+                session.user.role = user.role || "user";
             }
             return session;
         },
     },
+    pages: {
+        signIn: '/auth/signin',
+        newUser: '/auth/newuser',
+    }
 };
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     return await NextAuth(req, res, {
