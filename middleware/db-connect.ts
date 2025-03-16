@@ -11,7 +11,7 @@ async function dbConnect(): Promise<void> {
     // Connect to MongoDB Atlas
     await mongoose.connect(MONGO_ATLAS_URI, {
       dbName: "gojira",
-      serverSelectionTimeoutMS: 30000,
+      serverSelectionTimeoutMS: 50000,
       socketTimeoutMS: 30000,
     });
 

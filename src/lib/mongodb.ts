@@ -13,8 +13,8 @@ const options = {
         deprecationErrors: true,
     },
     serverSelectionTimeoutMS: 50000, // 50 seconds (default is 30s)
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    socketTimeoutMS: 30000,
+    dbName: "gojira",
 };
 
 // let client: MongoClient;
