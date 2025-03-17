@@ -86,8 +86,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return { redirect: { destination: "/" } }
   }
 
-  const providers = await getProviders()
+  const providers = await getProviders();
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/providers`);
   console.log("Fetched providers:", providers);
+  console.log("Force Fetched providers:", res);
 
   return {
     props: { providers: providers ?? [] },
