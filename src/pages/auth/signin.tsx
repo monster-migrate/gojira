@@ -4,7 +4,7 @@ import type {
 } from "next"
 import { getProviders, signIn } from "next-auth/react"
 import { getServerSession } from "next-auth/next"
-import { authOptions } from "../api/auth/[...nextauth]"
+import { authOptions } from "@/pages/api/auth/[...nextauth]"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { robotoCondensed } from "@/lib/fonts/robotoCondensed"
