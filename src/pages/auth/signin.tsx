@@ -86,23 +86,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return { redirect: { destination: "/" } }
   }
 
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/providers`);
+  const providers = await getProviders()
+  console.log("Fetched providers:", providers);
+
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/providers`)
   console.log("API Fetch Status:", res.status);
-
-  const responseText = await res.text(); // Get raw response first
-
+  const responseText = await res.text();
   try {
-    const pv = JSON.parse(responseText); // Parse JSON manually to check for errors
+    const pv = JSON.parse(responseText); 
     console.log("Force Fetched providers:", pv);
   } catch (error) {
     console.error("JSON Parsing Error:", error);
   }
 
-  const providers = await getProviders();
-  console.log("Fetched providers:", providers);
-
-
   return {
-    props: { providers: providers },
+    props: { providers: providers ?? [] },
   }
 }
