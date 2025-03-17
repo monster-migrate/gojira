@@ -4,7 +4,7 @@ import type {
 } from "next"
 import { getProviders, signIn } from "next-auth/react"
 import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/pages/api/auth/[...nextauth]"
+import { authOptions } from "../api/auth/[...nextauth]"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { robotoCondensed } from "@/lib/fonts/robotoCondensed"
@@ -86,12 +86,23 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return { redirect: { destination: "/" } }
   }
 
-  const providers = await getProviders();
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/providers`);
+  console.log("API Fetch Status:", res.status);
+
+  const responseText = await res.text(); // Get raw response first
+
+  try {
+    const pv = JSON.parse(responseText); // Parse JSON manually to check for errors
+    console.log("Force Fetched providers:", pv);
+  } catch (error) {
+    console.error("JSON Parsing Error:", error);
+  }
+
+  const providers = await getProviders();
   console.log("Fetched providers:", providers);
-  console.log("Force Fetched providers:", res);
+
 
   return {
-    props: { providers: providers ?? [] },
+    props: { providers: providers },
   }
 }
