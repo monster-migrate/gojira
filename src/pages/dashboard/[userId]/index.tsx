@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage, PreviewData } from "next";
 import { useSession } from "next-auth/react";
 import { ParsedUrlQuery } from "querystring";
-import dbConnect from "../../../middleware/db-connect";
+import dbConnect from "../../../../middleware/db-connect";
 
 const Dashboard: NextPage = (
     props: InferGetServerSidePropsType<typeof getServerSideProps>

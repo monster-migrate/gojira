@@ -20,7 +20,7 @@ const Layout = (props: PropsInterface): JSX.Element => {
                 {/* Show sidebar only for dashboard routes */}
                 {isDashboard && <AppSidebar />}
 
-                <div className="flex-1">
+                <div className="flex flex-col justify-start items-center">
                     {isDashboard ? <DashboardNavigation /> : <Navigation />}
                     <main className="layout-grid">
                         {props.children}

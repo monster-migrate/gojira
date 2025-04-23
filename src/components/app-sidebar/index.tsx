@@ -9,6 +9,8 @@ import { Separator } from "../ui/separator";
 import { Tooltip, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { TooltipContent } from "@radix-ui/react-tooltip";
 import { BsApp, BsArrowRight, BsClockFill, BsPlusCircle, BsRocket, BsStack, BsStarFill } from "react-icons/bs";
+import { FaPlusCircle } from "react-icons/fa";
+import SidebarTriggerContainer from "./sidebar-trigger";
 export function AppSidebar() {
     const {
         // state,
@@ -21,157 +23,73 @@ export function AppSidebar() {
     } = useSidebar()
     const { data: session } = useSession();
     return (
-        <Sidebar collapsible="icon" className={robotoCondensed.className}>
+        <Sidebar collapsible="icon" className={cn(robotoCondensed.className, "bg-gray-50 text-gray-800 shadow-md border-r border-gray-200")}>
+            {/* Sidebar Header */}
             <SidebarHeader>
-                <div className={cn(`flex justify-start items-center gap-2`,
-                    `bg-neutral-400 p-2 rounded-sm`,
-                )}>
-                    <MdWorkspaces />
-                    {open ?
-                        <p className="text-sm">
-                            {role(session?.user?.role || "") + " Workspace"}
-                        </p> : ""}
+                <div className="flex items-center gap-2 h-fit px-3 bg-emerald-500 text-gray-50 rounded-sm">
+                    <SidebarTriggerContainer icon={<MdWorkspaces className="mr-5" />} scale="scale-110" />
+                    {open && <p className="text-sm font-medium">{role(session?.user?.role || "")} Workspace</p>}
                 </div>
             </SidebarHeader>
+
+            {/* Sidebar Group */}
             <SidebarGroup>
-                <SidebarGroupLabel>
+                <SidebarGroupLabel className="text-xs font-semibold uppercase text-gray-500 tracking-wide p-2">
                     General
                 </SidebarGroupLabel>
+
                 <SidebarGroupContent>
                     <SidebarMenu>
-                        <SidebarMenuItem>
-                            {open ? <SidebarMenuButton>
-                                <div className="flex justify-start items-center gap-2">
-                                    <MdShelves />
-                                    <p>Your Work</p>
-                                </div>
-                                <TooltipProvider>
-                                    <SidebarMenuAction>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <PlusCircle />
-                                            </TooltipTrigger>
-                                            <TooltipContent className={cn(robotoCondensed.className)}>
-                                                <p className="text-xs bg-gray-700 text-neutral-100 p-1 rounded-sm">expand</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </SidebarMenuAction>
-                                </TooltipProvider>
-                            </SidebarMenuButton> : <MdShelves className="w-full mt-4" />}
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            {open ? <SidebarMenuButton>
-                                <div className="flex justify-start items-center gap-2">
-                                    <BsClockFill />
-                                    <p>Recent</p>
-                                </div>
-                                <TooltipProvider>
-                                    <SidebarMenuAction>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <BsArrowRight />
-                                            </TooltipTrigger>
-                                            <TooltipContent className={cn(robotoCondensed.className)}>
-                                                <p className="text-xs bg-gray-700 text-neutral-100 p-1 rounded-sm">your recent work</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </SidebarMenuAction>
-                                </TooltipProvider>
-                            </SidebarMenuButton> : <BsClockFill className="w-full mt-4" />}
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            {open ? <SidebarMenuButton>
-                                <div className="flex justify-start items-center gap-2">
-                                    <BsStarFill />
-                                    <p>Starred</p>
-                                </div>
-                                <TooltipProvider>
-                                    <SidebarMenuAction>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <BsArrowRight />
-                                            </TooltipTrigger>
-                                            <TooltipContent className={cn(robotoCondensed.className)}>
-                                                <p className="text-xs bg-gray-700 text-neutral-100 p-1 rounded-sm">starred projects</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </SidebarMenuAction>
-                                </TooltipProvider>
-                            </SidebarMenuButton> : <BsStarFill className="w-full mt-4" />}
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            {open ? <SidebarMenuButton>
-                                <div className="flex justify-start items-center gap-2">
-                                    <BsApp />
-                                    <p>Apps</p>
-                                </div>
-                                <TooltipProvider>
-                                    <SidebarMenuAction>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <BsPlusCircle />
-                                            </TooltipTrigger>
-                                            <TooltipContent className={cn(robotoCondensed.className)}>
-                                                <p className="text-xs bg-gray-700 text-neutral-100 p-1 rounded-sm">add new apps</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </SidebarMenuAction>
-                                </TooltipProvider>
-                            </SidebarMenuButton> : <BsApp className="w-full mt-4" />}
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            {open ? <SidebarMenuButton>
-                                <div className="flex justify-start items-center gap-2">
-                                    <BsStack />
-                                    <p>Plans</p>
-                                </div>
-                                <TooltipProvider>
-                                    <SidebarMenuAction>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <BsArrowRight />
-                                            </TooltipTrigger>
-                                            <TooltipContent className={cn(robotoCondensed.className)}>
-                                                <p className="text-xs bg-gray-700 text-neutral-100 p-1 rounded-sm">Show all plans</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </SidebarMenuAction>
-                                </TooltipProvider>
-                            </SidebarMenuButton> : <BsStack className="w-full mt-4" />}
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            {open ? <SidebarMenuButton>
-                                <div className="flex justify-start items-center gap-2">
-                                    <BsRocket />
-                                    <p>Projects</p>
-                                </div>
-                                <TooltipProvider>
-                                    <SidebarMenuAction>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <BsArrowRight />
-                                            </TooltipTrigger>
-                                            <TooltipContent className={cn(robotoCondensed.className)}>
-                                                <p className="text-xs bg-gray-700 text-neutral-100 p-1 rounded-sm">Show all projects</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </SidebarMenuAction>
-                                </TooltipProvider>
-                            </SidebarMenuButton> : <BsRocket className="w-full mt-4" />}
-                        </SidebarMenuItem>
+                        {[
+                            { icon: <MdShelves />, label: "Your Work", tooltip: "Expand", actionIcon: <PlusCircle /> },
+                            { icon: <BsClockFill />, label: "Recent", tooltip: "Your recent work", actionIcon: <BsArrowRight /> },
+                            { icon: <BsStarFill />, label: "Starred", tooltip: "Starred projects", actionIcon: <BsArrowRight /> },
+                            { icon: <BsApp />, label: "Apps", tooltip: "Add new apps", actionIcon: <BsPlusCircle /> },
+                            { icon: <BsStack />, label: "Plans", tooltip: "Show all plans", actionIcon: <BsArrowRight /> },
+                            { icon: <BsRocket />, label: "Projects", tooltip: "Show all projects", actionIcon: <FaPlusCircle /> },
+                        ].map((item, index) => (
+                            <SidebarMenuItem key={index}>
+                                {open ? (
+                                    <SidebarMenuButton className="flex items-center justify-between px-3 py-2 rounded-md hover:bg-gray-200 transition">
+                                        <div className="flex items-center gap-3">
+                                            {item.icon}
+                                            <p className="text-sm font-medium">{item.label}</p>
+                                        </div>
+                                        <TooltipProvider>
+                                            <SidebarMenuAction>
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>{item.actionIcon}</TooltipTrigger>
+                                                    <TooltipContent className="text-xs bg-gray-800 text-white p-1 rounded-md shadow-md">
+                                                        {item.tooltip}
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </SidebarMenuAction>
+                                        </TooltipProvider>
+                                    </SidebarMenuButton>
+                                ) : (
+                                    <div className="w-full flex justify-center py-2">{item.icon}</div>
+                                )}
+                            </SidebarMenuItem>
+                        ))}
                     </SidebarMenu>
-
                 </SidebarGroupContent>
             </SidebarGroup>
-            <SidebarFooter>
-                <Separator />
-                {open ?
-                    <div className="bg-neutral-400 rounded-sm p-2 flex justify-start items-center gap-2">
-                        <MdFeedback />
-                        <p className="text-sm">Any feedbacks or complaints?</p>
-                    </div> : <MdFeedback className="w-full" />}
 
+            {/* Sidebar Footer */}
+            <SidebarFooter className="mt-auto">
+                <Separator />
+                {open ? (
+                    <div className="flex items-center gap-3 p-3 text-gray-50 bg-emerald-500 rounded-lg hover:bg-emerald-700 cursor-pointer transition">
+                        <MdFeedback />
+                        <p className="text-sm font-medium">Any feedback or complaints?</p>
+                    </div>
+                ) : (
+                    <div className="w-full flex justify-center py-2">
+                        <MdFeedback className="text-gray-600" />
+                    </div>
+                )}
             </SidebarFooter>
         </Sidebar>
+
     );
 }

@@ -3,12 +3,17 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/
 import { SidebarTrigger } from "../ui/sidebar"
 import { cn } from "@/lib/utils"
 import { robotoCondensed } from "@/lib/fonts/robotoCondensed"
-const SidebarTriggerContainer = (): JSX.Element => {
+
+interface SidebarTriggerContainerProps {
+    icon: React.ReactNode;
+    scale: string;
+  }
+const SidebarTriggerContainer = ({icon, scale}: SidebarTriggerContainerProps): JSX.Element => {
     return (
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <SidebarTrigger className="scale-150" />
+                    <SidebarTrigger className={cn(`scale-150 cursor-pointer ${scale} `)} icon={icon}/>
                 </TooltipTrigger>
                 <TooltipContent className={cn(robotoCondensed.className)}>
                     <p>Toggle Sidebar</p>

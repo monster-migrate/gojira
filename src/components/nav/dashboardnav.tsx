@@ -30,8 +30,9 @@ const DashboardNavigation = (): JSX.Element => {
         // toggleSidebar,
     } = useSidebar()
     return (
-        <div className={cn(`flex justify-between items-center gap-2 ${open ? "w-screen-minus-sidebar" : "w-screen-minus-sidebar-icons "}`,
+        <div className={cn(`flex justify-between items-center gap-2 ${open ? "w-screen-minus-sidebar" : "w-screen-minus-sidebar-icons"}`,
             `bg-gray-200 h-[48px] overflow-y-clip px-2 transition-all duration-300 ease-in-out`,
+            `fixed z-30`,
             robotoCondensed.className)}>
             <div className="flex justify-center items-center gap-2 p-2 text-emerald-700">
                 <SidebarTriggerContainer />

@@ -1,23 +1,27 @@
 import gql from "graphql-tag";
-
+import { userRoleEnumTypeDefs } from "./typeDefs/enums/userRole.enum";
+import { userTypeDefs } from "./typeDefs/user.gqlschema";
+import { userQueries } from "./queries/user.query";
+import { userMutations } from "./mutations/user.mutation";
 export const typeDefs = gql`
-  enum UserRole {
-    ADMIN
-    MANAGER
-    DEVELOPER
-    USER
-    VIEWER
-  }
-
-  type User {
+${userRoleEnumTypeDefs}
+${userTypeDefs}
+${userQueries}
+${userMutations}
+  type Profile {
+    userId: ID!
     name: String!
     email: String!
-    password: String!
     role: UserRole!
-    createdAt: String!
-    updatedAt: String!
+    organization: String
+    department: String
+    location: String
+    mobile: String
+    countryCode: String
+    teams: [String]
+    createdAt: String
+    updatedAt: String
   }
-
   input CreateUserInput {
     name: String!
     email: String!
@@ -141,8 +145,6 @@ export const typeDefs = gql`
   }
 
   type Query {
-    getUser(email: String!): User
-    getUsers: [User!]
     getProject(key: String): Project
     getProjects: [Project!]
     getIssue(issueId: String!): Issue
@@ -151,20 +153,6 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(
-      name: String!
-      email: String!
-      password: String!
-      role: UserRole!
-    ): User!
-    updateUser(
-      name: String
-      email: String
-      password: String
-      role: UserRole
-    ): User!
-    deleteUser(email: String!): User
-
     createProject(
       name: String!
       description: String!

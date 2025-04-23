@@ -22,7 +22,7 @@ export const role = (role_code: string): string => {
 }
 const AccountMenu = (): JSX.Element => {
     const { data: session } = useSession();
-    
+
     return (
         <div>
             <DropdownMenu>
@@ -42,7 +42,7 @@ const AccountMenu = (): JSX.Element => {
                     </DropdownMenuItem>
                     <DropdownMenuItem >
                         <FaUserCircle />
-                        <Link href="/profile" className="flex justify-start items-center gap-2 p-2">Edit Profile</Link>
+                        <Link href={`/dashboard/${session?.user.fdlst_private_userId}/profile`} className="flex justify-start items-center gap-2 p-2">Edit Profile</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem >
                         <FcSettings />

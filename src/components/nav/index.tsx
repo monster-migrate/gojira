@@ -23,7 +23,7 @@ const Navigation = (): JSX.Element => {
         <header>
             <div className={cn(
                 `bg-gray-200 text-gray-700 py-4 px-8 sm:px-24`,
-                `flex items-center justify-between w-full text-xl gap-4`,
+                `flex items-center justify-between w-screen text-xl gap-4`,
                 robotoCondensed.className
             )}>
                 {/* Logo */}

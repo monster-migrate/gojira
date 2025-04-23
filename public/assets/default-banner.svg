@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="154.80695mm"
+   height="16.260637mm"
+   viewBox="0 0 154.80695 16.260637"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="default-banner.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient1"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#6ac79a;stop-opacity:1;"
+         offset="0"
+         id="stop1" />
+      <stop
+         style="stop-color:#1fc3a7;stop-opacity:0.45977011;"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1"
+       id="linearGradient2"
+       x1="101.10231"
+       y1="119.64092"
+       x2="101.10231"
+       y2="72.625481"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.34585739,0,47.507422)" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-23.698841,-72.625481)">
+    <rect
+       style="fill:url(#linearGradient2);stroke:none;stroke-width:0.588097;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1"
+       width="154.80695"
+       height="16.260637"
+       x="23.698841"
+       y="72.625481"
+       ry="0"
+       inkscape:export-filename="default-banner.png"
+       inkscape:export-xdpi="104.33424"
+       inkscape:export-ydpi="104.33424" />
+  </g>
+</svg>
