@@ -6,11 +6,11 @@ import {
   updateUser,
 } from "../../mongoose/User/user.services";
 import { UserRole } from "../../mongoose/User/user.interface";
-import { JWT } from "next-auth/jwt";
 import { authGuard } from "../../middleware/authguard";
+import { Session } from "next-auth";
 
 interface contextInterface {
-  token: JWT
+  session: Session | null;
 }
 interface paramInterface {
   _id: string;

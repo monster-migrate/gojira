@@ -12,7 +12,7 @@ interface PropsInterface {
 
 const Layout = (props: PropsInterface): JSX.Element => {
     const pathname = usePathname();
-    const isDashboard = pathname.startsWith("/dashboard");
+const isDashboard = pathname?.startsWith("/dashboard") ?? false;
 
     return (
         <SidebarProvider defaultOpen={false}>

@@ -1,7 +1,7 @@
 import User from "./user.model";
 import { UserInterface } from "./user.interface";
 
-export const createUser = async (data: UserInterface) => {
+export const createUser = async (data: Omit<UserInterface, "_id">) => {
   try {
     return await User.create(data);
   } catch (error) {

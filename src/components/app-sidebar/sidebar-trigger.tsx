@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils"
 import { robotoCondensed } from "@/lib/fonts/robotoCondensed"
 
 interface SidebarTriggerContainerProps {
-    icon: React.ReactNode;
-    scale: string;
+    icon?: React.ReactNode;
+    scale?: string;
   }
 const SidebarTriggerContainer = ({icon, scale}: SidebarTriggerContainerProps): JSX.Element => {
     return (
