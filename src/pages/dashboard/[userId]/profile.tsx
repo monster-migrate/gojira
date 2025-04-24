@@ -1,20 +1,21 @@
-import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage, PreviewData } from "next";
-import { ParsedUrlQuery } from "querystring";
-import dbConnect from "../../../../middleware/db-connect";
+// import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, PreviewData } from "next";
+import { NextPage } from "next";
+// import { ParsedUrlQuery } from "querystring";
+// import dbConnect from "../../../../middleware/db-connect";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { MdEdit, MdMail, MdOutlineWorkHistory, MdWork } from "react-icons/md";
 import { FaNetworkWired } from "react-icons/fa6";
-import { HiMiniBuildingOffice2, HiOutlineIdentification } from "react-icons/hi2";
-import { CiLocationArrow1, CiLocationOff, CiLocationOn } from "react-icons/ci";
+import { HiMiniBuildingOffice2 } from "react-icons/hi2";
+import { CiLocationArrow1 } from "react-icons/ci";
 import { cn } from "@/lib/utils";
 import { robotoCondensed } from "@/lib/fonts/robotoCondensed";
 import { BsPlusCircle } from "react-icons/bs";
 import { useSidebar } from "@/components/ui/sidebar";
 
 const Profile: NextPage = (
-    props: InferGetServerSidePropsType<typeof getServerSideProps>
+    // props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
     const { data: session } = useSession();
     const {
@@ -128,16 +129,16 @@ const Profile: NextPage = (
 }
 export default Profile;
 
-export const getServerSideProps: GetServerSideProps = async (
-    context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
-) => {
-    const { userId } = context.query;
-    try {
-        await dbConnect();
-    } catch (err: unknown) { console.log(err) }
-    return {
-        props: {
-            data: { userId: userId }
-        }
-    }
-}
+// export const getServerSideProps: GetServerSideProps = async (
+//     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+// ) => {
+//     const { userId } = context.query;
+//     try {
+//         await dbConnect();
+//     } catch (err: unknown) { console.log(err) }
+//     return {
+//         props: {
+//             data: { userId: userId }
+//         }
+//     }
+// }

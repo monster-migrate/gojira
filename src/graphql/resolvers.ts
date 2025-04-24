@@ -1,18 +1,12 @@
-import { userResolver } from "./user.resolver";
 import { projectResolver } from "./project.resolver";
-import { issueResolver } from "./issue.resolver";
-import { commentResolver } from "./comment.resolver";
+import { userResolver } from "./user.resolver";
 export const resolvers = {
     Query: {
       ...userResolver.Query,
-      ...projectResolver.Query,
-      ...issueResolver.Query,
-      ...commentResolver.Query,
+      ...projectResolver.Query
     },
     Mutation: {
       ...userResolver.Mutation,
-      ...projectResolver.Mutation,
-      ...issueResolver.Mutation,
-      ...commentResolver.Mutation,
+      ...projectResolver.Mutation
     },
   };

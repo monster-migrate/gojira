@@ -6,7 +6,17 @@ import {
   updateUser,
 } from "../../mongoose/User/user.services";
 import { UserRole } from "../../mongoose/User/user.interface";
+import { JWT } from "next-auth/jwt";
+import { authGuard } from "../../middleware/authguard";
 
+interface contextInterface {
+  token: JWT
+}
+interface paramInterface {
+  _id: string;
+  email: string;
+  role: string;
+}
 export const userResolver = {
   Query: {
     getUser: async (_parent: unknown, { email }: { email: string }) => {
@@ -64,12 +74,15 @@ export const userResolver = {
 
       return updatedUser;
     },
-    deleteUser: async (_parent: unknown, { email }: { email: string }) => {
-      const user = await getUserByEmail(email);
+    deleteUser: async (_parent: unknown, param: paramInterface, context: contextInterface) => {
+      const guard = authGuard(param, context)
+      if (guard !== true) { return guard; }
+      const user = await getUserByEmail(param.email);
       if (!user) {
         throw new Error("User not found");
       }
       console.log(user);
+      const email = param.email;
       const success = await deleteUser({ email });
       if (!success) {
         throw new Error("Failed to delete user");

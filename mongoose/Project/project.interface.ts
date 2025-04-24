@@ -1,5 +1,7 @@
-import { UserInterface } from "../User/user.interface";
-import { IssueInterface } from "../Issue/issue.interface";
+import { Types } from "mongoose";
+// import { SprintInterface } from "../Sprint/sprint.interface";
+// import { BoardInterface } from "../Board/board.interface";
+// import { ProjectUserInterface } from "../ProjectUser/projectUser.interface";
 
 export enum ProjectStatus {
   ACTIVE = "ACTIVE",
@@ -8,13 +10,20 @@ export enum ProjectStatus {
 }
 
 export interface ProjectInterface {
+  _id: Types.ObjectId;
   name: string;
-  description: string;
+  description?: string;
   key: string;
-  owner: UserInterface;
-  members: UserInterface[];
-  issues: IssueInterface[];
-  status: ProjectStatus;
+  slug: string;
+  endDate?: Date;
   createdAt: Date;
   updatedAt: Date;
+  owner: Types.ObjectId;
+  members: Types.ObjectId[];
+  issues: Types.ObjectId[];
+  sprints: Types.ObjectId[];
+  backlog: Types.ObjectId[];
+  boards: Types.ObjectId[];
+  isDeleted: boolean;
+  status: ProjectStatus;
 }

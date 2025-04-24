@@ -4,14 +4,23 @@ import { resolvers } from "../../graphql/resolvers";
 import { typeDefs } from "../../graphql/schema";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../../middleware/db-connect";
-
-
-const server = new ApolloServer({
+import { getServerSession, Session } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
+interface contextInterface {
+  session: Session | null;
+}
+const server = new ApolloServer<contextInterface>({
   resolvers,
   typeDefs,
 });
 
-const handler = startServerAndCreateNextHandler(server);
+const handler = startServerAndCreateNextHandler(server, {
+  context: async (req: NextApiRequest, res: NextApiResponse) => {
+    const session = await getServerSession(req, res, authOptions);
+    console.log("SESSION FROM NEXT-AUTH:", session);
+    return { session };
+  },
+});
 const allowCors =
   (fn: NextApiHandler) => async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader("Allow", "POST");

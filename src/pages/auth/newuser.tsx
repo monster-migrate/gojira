@@ -34,7 +34,7 @@ import Link from "next/link";
 import { robotoCondensed } from "@/lib/fonts/robotoCondensed";
 import { cn } from "@/lib/utils";
 const formSchema = z.object({
-    role: z.enum(["admin", "manager", "developer", "user", "viewer"])
+    role: z.enum(["ADMIN", "MANAGER", "DEVELOPER", "USER", "VIEWER"])
 })
 export default function NewUserPage() {
     const { data: session } = useSession();
@@ -44,7 +44,7 @@ export default function NewUserPage() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            role: "user",
+            role: "USER",
         },
     })
     async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -118,11 +118,11 @@ export default function NewUserPage() {
                                                     <SelectContent>
                                                         <SelectGroup>
                                                             <SelectLabel>Roles</SelectLabel>
-                                                            <SelectItem value="admin">Admin</SelectItem>
-                                                            <SelectItem value="manager">Manager</SelectItem>
-                                                            <SelectItem value="developer">Developer</SelectItem>
-                                                            <SelectItem value="user">User</SelectItem>
-                                                            <SelectItem value="viewer">Viewer</SelectItem>
+                                                            <SelectItem value="ADMIN">Admin</SelectItem>
+                                                            <SelectItem value="MANAGER">Manager</SelectItem>
+                                                            <SelectItem value="DEVELOPER">Developer</SelectItem>
+                                                            <SelectItem value="USER">User</SelectItem>
+                                                            <SelectItem value="VIEWER">Viewer</SelectItem>
                                                         </SelectGroup>
                                                     </SelectContent>
                                                 </Select>

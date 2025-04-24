@@ -11,7 +11,9 @@ import { TooltipContent } from "@radix-ui/react-tooltip";
 import { BsApp, BsArrowRight, BsClockFill, BsPlusCircle, BsRocket, BsStack, BsStarFill } from "react-icons/bs";
 import { FaPlusCircle } from "react-icons/fa";
 import SidebarTriggerContainer from "./sidebar-trigger";
+import { useRouter } from "next/router";
 export function AppSidebar() {
+    const router = useRouter();
     const {
         // state,
         open,
@@ -22,6 +24,12 @@ export function AppSidebar() {
         // toggleSidebar,
     } = useSidebar()
     const { data: session } = useSession();
+    const handleClick = (href: string) => {
+        const userId = session?.user?.fdlst_private_userId;
+        if (userId) {
+            router.push(href);
+        }
+    };
     return (
         <Sidebar collapsible="icon" className={cn(robotoCondensed.className, "bg-gray-50 text-gray-800 shadow-md border-r border-gray-200")}>
             {/* Sidebar Header */}
@@ -41,16 +49,16 @@ export function AppSidebar() {
                 <SidebarGroupContent>
                     <SidebarMenu>
                         {[
-                            { icon: <MdShelves />, label: "Your Work", tooltip: "Expand", actionIcon: <PlusCircle /> },
-                            { icon: <BsClockFill />, label: "Recent", tooltip: "Your recent work", actionIcon: <BsArrowRight /> },
-                            { icon: <BsStarFill />, label: "Starred", tooltip: "Starred projects", actionIcon: <BsArrowRight /> },
-                            { icon: <BsApp />, label: "Apps", tooltip: "Add new apps", actionIcon: <BsPlusCircle /> },
-                            { icon: <BsStack />, label: "Plans", tooltip: "Show all plans", actionIcon: <BsArrowRight /> },
-                            { icon: <BsRocket />, label: "Projects", tooltip: "Show all projects", actionIcon: <FaPlusCircle /> },
+                            { icon: <MdShelves />, label: "Your Work", tooltip: "Expand", actionIcon: <PlusCircle />, onclickHref: "#" },
+                            { icon: <BsClockFill />, label: "Recent", tooltip: "Your recent work", actionIcon: <BsArrowRight />, onclickHref: "#" },
+                            { icon: <BsStarFill />, label: "Starred", tooltip: "Starred projects", actionIcon: <BsArrowRight />, onclickHref: "#" },
+                            { icon: <BsApp />, label: "Apps", tooltip: "Add new apps", actionIcon: <BsPlusCircle />, onclickHref: "#" },
+                            { icon: <BsStack />, label: "Plans", tooltip: "Show all plans", actionIcon: <BsArrowRight />, onclickHref: "#" },
+                            { icon: <BsRocket />, label: "Projects", tooltip: "Show all projects", actionIcon: <FaPlusCircle />, onclickHref: `/dashboard/${session?.user.fdlst_private_userId}/manageprojects` },
                         ].map((item, index) => (
                             <SidebarMenuItem key={index}>
                                 {open ? (
-                                    <SidebarMenuButton className="flex items-center justify-between px-3 py-2 rounded-md hover:bg-gray-200 transition">
+                                    <SidebarMenuButton className="flex items-center justify-between px-3 py-2 rounded-md hover:bg-gray-200 transition" onClick={() => handleClick(item.onclickHref)}>
                                         <div className="flex items-center gap-3">
                                             {item.icon}
                                             <p className="text-sm font-medium">{item.label}</p>

@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const userMutations = gql`
-extend type Mutation {
+type Mutation {
     createUser(
         name: String!
         email: String!

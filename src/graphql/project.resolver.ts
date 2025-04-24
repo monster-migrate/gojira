@@ -1,136 +1,83 @@
-import {
-  createProject,
-  getProjectByKey,
-  getAllProjects,
-  updateProject,
-  deleteProject,
-} from "../../mongoose/Project/project.service";
+import { ProjectService } from "../../mongoose/Project/project.service";
+import { authGuard } from "../../middleware/authguard";
+import { ObjectId } from "mongoose";
+import { Session } from "next-auth";
+import { GraphQLError } from "graphql";
 import { getUserByEmail } from "../../mongoose/User/user.services";
+import { CreateProjectArgs } from "./mutations/project.mutation";
 import { ProjectStatus } from "../../mongoose/Project/project.interface";
-import { v4 as uuidv4 } from "uuid";
-import { IssueInterface } from "../../mongoose/Issue/issue.interface";
-import { UserRole } from "../../mongoose/User/user.interface";
-
-function createUniqueId() {
-  const uniqueId = uuidv4();
-  return uniqueId;
-}
 export const projectResolver = {
   Query: {
-    getProject: async (_parent: unknown, { key }: { key: string }) => {
-      const project = await getProjectByKey(key);
-      if (!project) throw new Error("Project Not Found!");
-      return project;
+    projects: async (
+      _parent: unknown,
+      args: { first?: number; after?: string }
+    ) => {
+      // Default pagination values
+      const limit = args.first ?? 10;
+      // For offset-based pagination, 'after' can be a numeric offset or last ID
+      const skip = args.after ? parseInt(args.after, 10) : 0;
+
+      // Fetch projects with pagination
+      return ProjectService.getAllProjects(1 + skip / limit, limit);
+      // If you use offset/skip in your service, you could do:
+      // return Project.find({}).skip(skip).limit(limit);
     },
-    getProjects: async () => {
-      return await getAllProjects();
-    },
+    getProjectsByUserID: async (
+      _parent: unknown,
+      args: { userId: ObjectId }
+    ) => {
+      return ProjectService.getProjectsByUserID(args.userId)
+    }
   },
   Mutation: {
     createProject: async (
       _parent: unknown,
-      {
-        name,
-        description,
-        owner,
-        status,
-      }: {
-        name: string;
-        description: string;
-        owner: {
-          name: string;
-          email: string;
-          password: string;
-          role: UserRole;
-        };
-        status: ProjectStatus;
-      }
+      args: CreateProjectArgs,
+      context: { session: Session | null }
     ) => {
-      try {
-        const user = await getUserByEmail(owner.email);
-        if (!user) {
-          throw new Error("User not found");
-        }
-        const document = {
-          name,
-          description,
-          owner: user,
-          key: createUniqueId(),
-          members: [],
-          issues: [],
-          status,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        const success = await createProject(document);
-        if (!success) {
-          throw new Error("Failed to create project");
-        }
-        return document;
-      } catch (error) {
-        console.error(error);
+      const user = context.session?.user;
+      console.log("SESSION USER:", context.session?.user);
+
+      // Ensure user is authenticated and session is valid
+      if (!user || !user.fdlst_private_userId) {
+        throw new GraphQLError("User is not authenticated", {
+          extensions: {
+            http: { status: 401 },
+            code: "UNAUTHENTICATED",
+          },
+        });
       }
-    },
-    updateProject: async (
-      _parent: unknown,
-      {
-        key,
-        name,
-        description,
-        status,
-        members,
-        issues,
-      }: {
-        key: string;
-        name: string;
-        description: string;
-        status: ProjectStatus;
-        members: {
-          name: string;
-          email: string;
-          password: string;
-          role: UserRole;
-        }[];
-        issues: IssueInterface[];
+
+      const { fdlst_private_userId, email, role } = user;
+
+      const authorized = authGuard(
+        { _id: fdlst_private_userId, email, role },
+        context
+      );
+
+      if (authorized instanceof Error) throw authorized;
+
+      if (!email) {
+        throw new Error("User email is missing from session");
       }
-    ) => {
-      try {
-        const users = [];
-        for (const member of members) {
-          const user = await getUserByEmail(member.email);
-          if (!user) {
-            throw new Error("User not found");
-          }
-          users.push(user);
-        }
-        console.log(users);
-        const updateData = {
-          ...(name && { name }),
-          ...(description && { description }),
-          ...(status && { status }),
-          ...(members && { members: users.map((user) => user) }),
-          ...(issues && { issues }),
-          updatedAt: new Date(),
-        };
-        const updatedProject = await updateProject(key, updateData);
-        if (!updatedProject) {
-          throw new Error("Failed to update project");
-        }
-        return updatedProject;
-      } catch (err) {
-        console.error(err);
-      }
-    },
-    deleteProject: async (_parent: unknown, { key }: { key: string }) => {
-      const project = await getProjectByKey(key);
-      if (!project) {
-        throw new Error("Project not found");
-      }
-      const success = await deleteProject({ key });
-      if (!success) {
-        throw new Error("Failed to delete project");
-      }
-      return project;
+
+      const currentUser = await getUserByEmail(email);
+      // const owner = currentUser;
+
+      return ProjectService.createProject({
+        name: args.input.name,
+        key: args.input.key,
+        description: args.input.description,
+        slug: args.input.name.toLowerCase().replace(/\s+/g, "-"),
+        owner: currentUser._id,
+        members: [],
+        issues: [],
+        sprints: [],
+        backlog: [],
+        boards: [],
+        status: ProjectStatus.ACTIVE,
+        isDeleted: false,
+      });
     },
   },
 };
