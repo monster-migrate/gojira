@@ -1,4 +1,5 @@
-process.env.MONGO_URI = "mongodb+srv://pascal:Pm148e6@cluster0.k11a4.mongodb.net/gojira?retryWrites=true&w=majority";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.test" });
 /**
  * @jest-environment node
  */
