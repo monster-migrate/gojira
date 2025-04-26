@@ -21,6 +21,15 @@ export class ProjectService {
     }
   }
 
+  static async getProjectById(projectId: ObjectId) {
+    const project = await Project.findOne({ _id: projectId }).populate({
+      path: "owner",
+      select: "email"
+    })
+
+    if (!project) throw new NotFoundError("Project not found");
+    return project;
+  }
   // Get with proper population and caching
   static async getProjectByKey(key: string) {
     const project = await Project.findOne({ key: key.toUpperCase() })

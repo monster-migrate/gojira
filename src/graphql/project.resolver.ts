@@ -12,21 +12,21 @@ export const projectResolver = {
       _parent: unknown,
       args: { first?: number; after?: string }
     ) => {
-      // Default pagination values
       const limit = args.first ?? 10;
-      // For offset-based pagination, 'after' can be a numeric offset or last ID
       const skip = args.after ? parseInt(args.after, 10) : 0;
-
-      // Fetch projects with pagination
       return ProjectService.getAllProjects(1 + skip / limit, limit);
-      // If you use offset/skip in your service, you could do:
-      // return Project.find({}).skip(skip).limit(limit);
     },
     getProjectsByUserID: async (
       _parent: unknown,
       args: { userId: ObjectId }
     ) => {
       return ProjectService.getProjectsByUserID(args.userId)
+    },
+    getProjectById: async (
+      _parent: unknown,
+      args: { projectId: ObjectId }
+    ) => {
+      return ProjectService.getProjectById(args.projectId);
     }
   },
   Mutation: {

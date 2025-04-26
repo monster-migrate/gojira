@@ -49,7 +49,7 @@ export function AppSidebar() {
                 <SidebarGroupContent>
                     <SidebarMenu>
                         {[
-                            { icon: <MdShelves />, label: "Your Work", tooltip: "Expand", actionIcon: <PlusCircle />, onclickHref: "#" },
+                            { icon: <MdShelves />, label: "Overview", tooltip: "Your Dashboard", actionIcon: <PlusCircle />, onclickHref: `/dashboard/${session?.user?.fdlst_private_userId}` },
                             { icon: <BsClockFill />, label: "Recent", tooltip: "Your recent work", actionIcon: <BsArrowRight />, onclickHref: "#" },
                             { icon: <BsStarFill />, label: "Starred", tooltip: "Starred projects", actionIcon: <BsArrowRight />, onclickHref: "#" },
                             { icon: <BsApp />, label: "Apps", tooltip: "Add new apps", actionIcon: <BsPlusCircle />, onclickHref: "#" },
