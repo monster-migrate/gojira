@@ -1,5 +1,6 @@
 import Project from "./project.model";
 import { ProjectInterface } from "./project.interface";
+import { ProjectSortInput } from "@/lib/interfaces/ProjectSortInput";
 import { ObjectId, Types } from "mongoose";
 import { NotFoundError, ConflictError } from "../errors";
 
@@ -54,11 +55,16 @@ export class ProjectService {
     if (!project) throw new NotFoundError("Project not found");
     return project;
   }
-  static async getProjectsByUserID(userId: ObjectId) {
+  static async getProjectsByUserID(userId: ObjectId, orderBy: ProjectSortInput = {}) {
+    const sortSpec: Record<string, 1 | -1> = {};
+    if (orderBy.createdAt) sortSpec.createdAt = orderBy.createdAt === "DESC" ? -1 : 1;
+    if (orderBy.updatedAt) sortSpec.updatedAt = orderBy.updatedAt === "DESC" ? -1 : 1;
+    if (orderBy.endDate) sortSpec.endDate = orderBy.endDate === "DESC" ? -1 : 1;
+
     const projects = await Project.find({ owner: userId }).populate({
       path: "owner",
       select: "name email role"
-    })
+    }).sort(sortSpec).exec()
     return projects;
   }
 

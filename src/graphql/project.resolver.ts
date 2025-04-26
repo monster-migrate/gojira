@@ -6,6 +6,8 @@ import { GraphQLError } from "graphql";
 import { getUserByEmail } from "../../mongoose/User/user.services";
 import { CreateProjectArgs } from "./mutations/project.mutation";
 import { ProjectStatus } from "../../mongoose/Project/project.interface";
+import { ProjectSortInput } from "@/lib/interfaces/ProjectSortInput";
+
 export const projectResolver = {
   Query: {
     projects: async (
@@ -18,9 +20,9 @@ export const projectResolver = {
     },
     getProjectsByUserID: async (
       _parent: unknown,
-      args: { userId: ObjectId }
+      args: { userId: ObjectId; orderBy?: ProjectSortInput }
     ) => {
-      return ProjectService.getProjectsByUserID(args.userId)
+      return ProjectService.getProjectsByUserID(args.userId, args.orderBy)
     },
     getProjectById: async (
       _parent: unknown,

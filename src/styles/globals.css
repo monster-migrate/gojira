@@ -115,6 +115,6 @@ body {
     width: calc(100vw - 3rem);
   }
   .mt-navbar-offset {
-    margin-top: 4rem;
+    margin-top: 3rem;
   }
 }
