@@ -15,13 +15,13 @@ export const getAllUser = async () => {
     throw new Error(`Error getting all users: ${error}`);
   }
 };
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmail = async (email: string): Promise<UserInterface | null> => {
   try {
-    const user = await User.findOne({ email });
-    console.log(user);
-    return user;
+    return await User.findOne({ email });
   } catch (error) {
-    throw new Error(`Error fetching user: ${error}`);
+    throw new Error(
+      `Error fetching user: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 };
 
@@ -35,7 +35,6 @@ export const updateUser = async (
       throw new Error("User not found");
     }
     Object.assign(user, data);
-    console.log(user);
     await user.save();
     return { ...user.toObject(), ...data };
   } catch (error) {

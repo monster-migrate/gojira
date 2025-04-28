@@ -1,5 +1,4 @@
-import { ObjectId } from "mongoose";
-import { IssueInterface } from "../Issue/issue.interface";
+import { Types } from "mongoose";
 
 export enum UserRole {
   ADMIN = 'ADMIN',
@@ -9,7 +8,7 @@ export enum UserRole {
   VIEWER = 'VIEWER',
 }
 export interface UserInterface {
-  _id: ObjectId
+  _id: Types.ObjectId
   name: string;
   email: string;
   password: string;
